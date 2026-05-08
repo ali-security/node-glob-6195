@@ -8,13 +8,13 @@ jobs:
       matrix:
         node-version: [20.x, 22.x]
         platform:
-        - os: ubuntu-latest
+        - os: ubuntu-24.04
           shell: bash
-        - os: macos-latest
+        - os: macos-15
           shell: bash
-        - os: windows-latest
+        - os: windows-2025
           shell: bash
-        - os: windows-latest
+        - os: windows-2025
           shell: powershell
       fail-fast: false
 
@@ -24,21 +24,21 @@ jobs:
         shell: ${{ matrix.platform.shell }}
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+    - name: Checkout Repository
+      uses: actions/checkout@v4
 
-      - name: Use Nodejs ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
+    - name: Use Nodejs ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
 
-      - name: Install dependencies
-        run: npm install
+    - name: Install dependencies
+      run: npm install
 
-      - name: Run Tests Windows (incomplete coverage)
-        if: matrix.platform.os == 'windows-latest'
-        run: npm test -- -c -t0 --allow-incomplete-coverage
+    - name: Run Tests Windows (incomplete coverage)
+      if: matrix.platform.os == 'windows-2025'
+      run: npm test -- -c -t0 --allow-incomplete-coverage
 
-      - name: Run Tests Unix (complete coverage)
-        if: matrix.platform.os != 'windows-latest'
-        run: npm test -- -c -t0
+    - name: Run Tests Unix (complete coverage)
+      if: matrix.platform.os != 'windows-2025'
+      run: npm test -- -c -t0

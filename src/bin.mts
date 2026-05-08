@@ -274,7 +274,7 @@ try {
     stream.on('data', f => console.log(f))
   } else {
     stream.on('data', f => matches.push(f))
-    stream.on('end', () => foregroundChild(cmd, matches, { shell: true }))
+    stream.on('end', () => foregroundChild(cmd, matches))
   }
 } catch (e) {
   console.error(j.usage())
